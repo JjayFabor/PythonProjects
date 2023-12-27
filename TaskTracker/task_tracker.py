@@ -17,6 +17,14 @@ def addTask(args):
     if not args.due:
         # Due date will be set to None if not provided
         pass
+    if args.priority == 'Low':
+        pass
+    elif args.priority == 'Medium':
+        pass
+    elif args.priority == 'High':
+        pass
+    else:
+        raise argparse.ArgumentTypeError('Invalid priority')
     
     with open('tasks.txt', 'a') as f:
         f.write(f'{args.title}: {args.description} ------------ {args.due} \n')
@@ -44,6 +52,7 @@ def main():
     add_parser.add_argument('-t', 'title', type=str, help='Title of the task', required=True)
     add_parser.add_argument('-d', '--description', type=str, help='Description of the task', required=True)
     add_parser.add_argument('--due', type=str, help='Due date of the task (default: None)', default=None)
+    add_parser.add_argument('p','--priority', type=str, help='Priority of the task (default: Low)', default='Low')
 
     # subparser to perform 'List all the task'
     list_parser = subparser.add_parser('list', help='List all tasks')
