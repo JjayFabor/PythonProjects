@@ -15,6 +15,11 @@ Welcome to my personal repository containing various Python projects. This colle
 
 1. ### [Task Tracker Command-Line Application](/TaskTracker)
    - **Description:** A simple command-line task tracker.
+   - **Features:**
+      - **Add:** Adding tasks.
+      - **List:** List all the tasks.
+      - **Delete:** Delete specific tasks and file text.
+      - **Notify:** Notify upcoming due tasks.
 
 ## Getting Started
 
