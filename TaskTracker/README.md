@@ -25,7 +25,7 @@ To add the a new task, use the following command:
 ```
 
 * Options:
-    * `-t` or `title`: Title of the task (required).
+    * `title`: Title of the task (required).
     * `--description` or `-d`: Description of the task (required).
     * `--due`: Due date of the task (optional).
 
