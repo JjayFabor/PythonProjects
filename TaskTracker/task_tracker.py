@@ -117,6 +117,37 @@ def deleteAllTask(args):
     except FileNotFoundError:
         print('No tasks for the day.')
 
+
+def notifyUpcomingTasks():
+    """
+    Notify the user of upcoming tasks.
+    """
+    try: 
+        # Read tasks from the file
+        with open('tasks.txt', 'r') as f:
+            tasks = f.readlines()
+        
+        timeNow = datetime.now()
+
+        for task in tasks:
+
+            # Parse the due date and time from the task
+            _, _, due_date, due_time, _ = task.split('|')
+            due_datetime = datetime.strptime(f'{due_date.strip()} {due_time.strip()}', '%Y-%m-%d %H:%M')
+
+            # Calculate the time difference
+            time_difference = due_datetime - timeNow
+
+            # Notify if the task is due within the next 1 hour
+            if 0 <= time_difference.total_seconds() <= 1 * 3600:
+                notification_title = 'Upcoming Task'
+                notification_message = f'Task "{task}" is due soon!'
+                print(f'{notification_title}: {notification_message}')
+
+    except FileNotFoundError:
+        pass
+
+
 def main():
     parser = argparse.ArgumentParser(prog='Task Tracker with Command-Line', description='Command-line Task Tracker')
     subparser = parser.add_subparsers(dest='command', help='Command to perform')
@@ -148,6 +179,8 @@ def main():
 
     if hasattr(args, 'func'):
         args.func(args)
+        if args.command == 'list' or args.command == 'add':
+            notifyUpcomingTasks() # notify after listing or adding tasks
     else:
         print('Invalid command. Use "add" or "list".')
 
