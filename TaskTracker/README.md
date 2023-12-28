@@ -29,7 +29,7 @@ To add the a new task, use the following command:
     * `--description` or `-d`: Description of the task (required).
     * `--date`: Due date of the task in the format YYYY-MM-DD (optional, defaults to tomorrow's date if not provided).
     * `--time`: Due time of the task in the format HH:MM (optional).
-    * `--priority` or `-p`: Priority of the task  (optional: 'Low > Medium > High',  defaults to "Low" if not provided).
+    * `--priority` or `-p`: Priority of the task  (optional: 'Low | Medium | High',  defaults to "Low" if not provided).
 
 ### Listing Tasks
 To list all the tasks, use the following command:
