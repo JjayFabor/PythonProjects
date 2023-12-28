@@ -24,6 +24,7 @@ To add the a new task, use the following command:
 ```bash
         python task_tracker.py add --title "Task 1" --description "Description of Task 1" --due "2023-12-31" 
 ```
+This will also add a notification message if the task is due within 1 hour.
 
 * Options:
     * `title`: Title of the task (required).
@@ -37,6 +38,8 @@ To list all the tasks, use the following command:
 ```bash
     python task_tracker.py list
 ```
+This will also add a notification message if the task is due within 1 hour.
+
 ### Deleting a Task
 To delete a specific task, use the following command:
 ```bash
