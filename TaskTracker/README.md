@@ -10,11 +10,10 @@ A simple command-line task tracker written in Python.
 
 ## Installation
 
-### Clone the repository:
+**Go to the folder where you want to try the project**
 
    ```bash
-   git clone https://github.com/yourusername/task-tracker.git
-   cd task-tracker 
+   cd TaskTracker 
    ```
 
 ## Usage

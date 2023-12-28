@@ -2,6 +2,15 @@
 
 Welcome to my personal repository containing various Python projects. This collection includes a diverse range of projects, each designed to showcase my skills and interests in Python development. Feel free to explore the folders and files to learn more about each project.
 
+## Installation
+
+### Clone the repository:
+
+   ```bash
+   git clone https://github.com/JjayFabor/PythonProjects.git
+   cd PythonProjects 
+   ```
+
 ## Project List
 
 1. ### [Task Tracker Command-Line Application](/TaskTracker)
