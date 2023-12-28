@@ -13,7 +13,8 @@ A simple command-line task tracker written in Python.
 **Go to the folder where you want to try the project**
 
    ```bash
-   cd TaskTracker 
+   cd TaskTracker
+   pip install -r requirements.txt
    ```
 
 ## Usage
