@@ -161,3 +161,6 @@ cython_debug/
 
 # Text file
 tasks.txt
+
+#Database File
+LibraryManagement/Database/BookDatabase.db
