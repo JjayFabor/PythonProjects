@@ -21,9 +21,9 @@ Welcome to my personal repository containing various Python projects. This colle
       - **Delete:** Delete specific tasks and file text.
       - **Notify:** Notify upcoming due tasks.
 
-2. ### [Library Management System - Console Interface](/LibraryManagementSystem)
+2. ### [Library Management System - Console Interface](/LibraryManagement)
    - **Description:** A console interface library management system
-   
+
 ## Getting Started
 
 To get started with any project, follow the instructions provided in each project's respective folder. Make sure to check for any dependencies or requirements mentioned in the project's documentation.
