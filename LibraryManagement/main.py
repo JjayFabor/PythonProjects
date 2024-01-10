@@ -3,6 +3,7 @@
 '''
 
 from books import Books
+from members import Members
 
 class Menu:
     def __init__(self):
@@ -29,10 +30,13 @@ class Menu:
     def options(self):
         self.options = int(input("Choose a number: "))
         self.books = Books()
+        self.members = Members()
 
         if self.options == 2:
             print(self.books)
             self.books.options()
+        if self.options == 3:
+            self.members.add_member()
 
     def library(self):
         pass
