@@ -17,7 +17,7 @@ class Books:
         if self.options == 2:
             self.add_books()
         if self.options == 3:
-            pass
+            self.remove_books()
 
     def list_books(self):
     
@@ -69,10 +69,13 @@ class Books:
                 self.cursor.execute(f'DELETE FROM BookTable WHERE Title = "{book_title_to_remove}"')
                 print(f'Book "{book_title_to_remove}" removed successfully!')
 
-                self.library_database.close_connection()
-
         except Exception as e:
             print(f'Error: ' + str(e))
+
+        self.library_database.close_connection()
+
+    def update_books(self):
+        pass
 
     def borrow_books(self):
         pass
