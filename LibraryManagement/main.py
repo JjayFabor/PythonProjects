@@ -36,7 +36,7 @@ class Menu:
             print(self.books)
             self.books.options()
         if self.options == 3:
-            self.members.add_member()
+            self.members.remove_member()
 
     def library(self):
         pass
