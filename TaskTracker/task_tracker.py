@@ -39,7 +39,8 @@ def findNextAvailableTaskTitle():
 
     try:
         with open('tasks.txt', 'r') as f:
-            # Check existing task titles
+            # C
+            # heck existing task titles
             existing_titles = [line.split('|')[0].strip() for line in f.readlines()]
 
             # Find the highest task index
