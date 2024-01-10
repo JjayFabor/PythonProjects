@@ -1,8 +1,8 @@
 import sqlite3
 import os
 
-class BookDatabase:
-    def __init__(self, book_directory='Database', database_name='BookDatabase.db'):
+class LibraryDatabase:
+    def __init__(self, book_directory='Database', database_name='LibraryDatabase.db'):
         self.book_directory = book_directory
         self.database_name = database_name
 
@@ -15,13 +15,30 @@ class BookDatabase:
     def create_book_table(self):
         self.cursor = self.connect_to_database()
         try:
-            self.cursor.execute(f'''
+            self.cursor.execute('''
                     CREATE TABLE IF NOT EXISTS BookTable (
                         Title TEXT,
                         Author TEXT,
                         PublishDate TEXT
                     );
                 ''')
+        except Exception as e:
+            print(f'Error creating table: {e}')
+        
+        self.close_connection()
+    
+    def create_member_table(self):
+        self.cursor = self.connect_to_database()
+        try:
+            self.cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS MemberTable 
+                        (MemberID INTEGER PRIMARY KEY, 
+                        First_Name TEXT, 
+                        Last_Name TEXT, 
+                        Phone TEXT, 
+                        Email TEXT, 
+                        Address TEXT);
+                    ''')
         except Exception as e:
             print(f'Error creating table: {e}')
         
