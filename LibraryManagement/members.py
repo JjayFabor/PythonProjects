@@ -22,12 +22,26 @@ class Members:
                 self.cursor.execute(f'''
                         INSERT INTO MemberTable (First_Name, Last_Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?)
                     ''', (first_name, last_name, phone_number, email, address))
-
+                conn.commit()
+                print(f'Member added successfully.')
         except Exception as e:
             print(f'Error: {str(e)}')
 
     def remove_member(self):
-        pass
+        try:
+            with self.library_database.connect_to_database() as conn:
+                self.cursor = conn.cursor()
+
+                memberID_to_delete = input("Enter the member ID to delete: ")
+
+                self.cursor.execute(f'DELETE FROM MemberTable WHERE MemberID = "{memberID_to_delete}"')
+                print(f'Member "{memberID_to_delete}" removed successfully!')
+
+        except Exception as e:
+            print(f'Error: ' + str(e))
+
+        self.library_database.close_connection()
+
 
     def update_member(self):
         pass
