@@ -4,10 +4,10 @@ store in a database.
 '''
 
 import requests
-from Database.database import BookDatabase
+from Database.database import LibraryDatabase
 
 def get_top_books(api_key):
-    book_database = BookDatabase()
+    book_database = LibraryDatabase()
     book_database.create_book_table()
 
     base_url = "https://www.googleapis.com/books/v1/volumes"
