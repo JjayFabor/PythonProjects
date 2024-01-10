@@ -14,7 +14,7 @@ def get_top_books(api_key):
     params = {
         "q": "Artificial Intelligence",  # Retrieve top books with Artificial Intelligence topics
         "orderBy": "newest",  # Sorted by newest books
-        "maxResults": 20,  # Limit to the top 20 results
+        "maxResults": 10,  # Limit to the top 10 results
         "key": api_key
     }
 
