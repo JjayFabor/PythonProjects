@@ -8,7 +8,8 @@ class Books:
         return '''\nPlease select a number:
                 1. Display all books
                 2. Add books
-                3. Remove books\n'''
+                3. Remove books
+                4. Update books\n'''
     
     def options(self):
         self.options = int(input("Choose a number: "))
@@ -18,6 +19,8 @@ class Books:
             self.add_books()
         if self.options == 3:
             self.remove_books()
+        if self.options == 4:
+            self.update_books()
 
     def list_books(self):
     
@@ -108,7 +111,7 @@ class Books:
 
                 conn.commit()
                 print(f'Book with title {book_title_to_update} update successfully!')
-                
+
         except Exception as e:
             print(f'Error: ' + str(e))
 
