@@ -6,6 +6,44 @@ class Members:
         # initialize database
         self.library_database = LibraryDatabase()
 
+    def __str__(self):
+        return '''\nPlease select a number:
+                1. Display all members
+                2. Add Member
+                3. Remove Member
+                4. Update Member\n'''
+    
+    def options(self):
+        self.options = int(input("Choose a number: "))
+        if self.options == 1:
+            self.display_members()
+        if self.options == 2:
+            self.add_member()
+        if self.options == 3:
+            self.remove_member()
+        if self.options == 4:
+            self.update_member()
+
+    def display_members(self):
+        
+        try:
+            with self.library_database.connect_to_database() as conn:
+                self.cursor = conn.cursor()
+                
+                self.cursor.execute('SELECT * FROM MemberTable')
+                all_member = self.cursor.fetchall()
+
+                for member in all_member:
+                    print(f'Member ID: {member[1]}')
+                    print(f'First Name: {member[2]}')
+                    print(f'Last Name: {member[3]}')
+                    print(f'Phone Number: {member[4]}')
+                    print(f'Email: {member[5]}')
+                    print(f'Address: {member[6]}\n')
+
+        except Exception as e:
+            print(f'Error: {str(e)}')
+
     def add_member(self):
         self.library_database.create_member_table()
 
@@ -19,7 +57,7 @@ class Members:
                 email = input("Enter your email address: ")
                 address = input("Enter your address: ")
 
-                self.cursor.execute('SELECT MAX(MemberID) FROM MemberTable')
+                self.cursor.execute('SELECT MAX(id) FROM MemberTable')
                 max_id = self.cursor.fetchone()[0]
 
                 # Generate new ID
@@ -28,8 +66,8 @@ class Members:
                 memberID = last_name.lower() + str(new_id)
                 
                 self.cursor.execute(f'''
-                        INSERT INTO MemberTable (MemberID, First_Name, Last_Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?, ?)
-                    ''', (memberID, first_name, last_name, phone_number, email, address))
+                        INSERT INTO MemberTable (id, MemberID, First_Name, Last_Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ''', (str(new_id), memberID, first_name, last_name, phone_number, email, address))
                 conn.commit()
                 print(f'Member added successfully.')
 
@@ -67,12 +105,12 @@ class Members:
                 member_data_list = [list(row) for row in member_data]
 
                 for member in member_data_list:
-                    print(f'\nMember ID: {member[0]}')
-                    print(f'First Name: {member[1]}')
-                    print(f'Last Name: {member[2]}')
-                    print(f'Phone Number: {member[3]}')
-                    print(f'Email: {member[4]}')
-                    print(f'Address: {member[5]}\n')
+                    print(f'\nMember ID: {member[1]}')
+                    print(f'First Name: {member[2]}')
+                    print(f'Last Name: {member[3]}')
+                    print(f'Phone Number: {member[4]}')
+                    print(f'Email: {member[5]}')
+                    print(f'Address: {member[6]}\n')
                 
                 # Get new member data from the user
                 new_firstName = input("Enter your first name (leave empty to keep current data): ")
