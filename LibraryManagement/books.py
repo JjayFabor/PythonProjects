@@ -56,7 +56,8 @@ class Books:
                 print("Book not added!")
 
         except Exception as e:
-            print("Error: " + str(e))
+            print(f'Error: ' + str(e))
+
 
     def remove_books(self):
         
@@ -75,7 +76,39 @@ class Books:
         self.library_database.close_connection()
 
     def update_books(self):
-        pass
+        
+        try:
+            with self.library_database.connect_to_database() as conn:
+                self.cursor = conn.cursor()
 
-    def borrow_books(self):
-        pass
+                book_title_to_update = input("Enter the title of the book you want to update: ")
+
+                # Display the current data for the memberID to be updated
+                self.cursor.execute(f'SELECT * FROM BookTable WHERE Title = "{book_title_to_update}"')
+                book_data = self.cursor.fetchall()
+
+                # Convert member data into a list of list because it is a list of tuples
+                book_data_list = [list(row) for row in book_data]
+
+                for book in book_data_list:
+                    print(f'\Title: {book[0]}')
+                    print(f'Author: {book[1]}')
+                    print(f'Publish Date: {book[2]}')
+
+                new_title = input("Enter the book title (leave empty to keep the current data): ")    
+                new_author = input("Enter the author (leave empty to keep the current data): ")
+                new_publishDate = input("Enter the publish date (leave empty to keep the current data): ")
+
+                if new_title:
+                    self.cursor.execute('UPDATE BookTable SET Title = ? WHERE Title = ?', (new_title, book_title_to_update))
+                if new_author:
+                    self.cursor.execute('UPDATE BookTable SET Author = ? WHERE Title = ?', (new_author, book_title_to_update))
+                if new_publishDate:
+                    self.cursor.execute('UPDATE BookTable SET PublishDate = ? WHERE Title = ?', (new_publishDate, book_title_to_update))
+
+                conn.commit()
+                print(f'Book with title {book_title_to_update} update successfully!')
+                
+        except Exception as e:
+            print(f'Error: ' + str(e))
+
