@@ -32,7 +32,8 @@ class LibraryDatabase:
         try:
             self.cursor.execute('''
                     CREATE TABLE IF NOT EXISTS MemberTable 
-                        (MemberID TEXT PRIMARY KEY,
+                        ( id TEXT PRIMARY KEY,
+                        MemberID TEXT,
                         First_Name TEXT NOT NULL, 
                         Last_Name TEXT, 
                         Phone TEXT, 
