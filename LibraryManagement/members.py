@@ -19,11 +19,20 @@ class Members:
                 email = input("Enter your email address: ")
                 address = input("Enter your address: ")
 
+                self.cursor.execute('SELECT MAX(MemberID) FROM MemberTable')
+                max_id = self.cursor.fetchone()[0]
+
+                # Generate new ID
+                new_id = 20240001 if max_id is None else int(max_id) + 1
+                
+                memberID = last_name.lower() + str(new_id)
+                
                 self.cursor.execute(f'''
-                        INSERT INTO MemberTable (First_Name, Last_Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?)
-                    ''', (first_name, last_name, phone_number, email, address))
+                        INSERT INTO MemberTable (MemberID, First_Name, Last_Name, Phone, Email, Address) VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (memberID, first_name, last_name, phone_number, email, address))
                 conn.commit()
                 print(f'Member added successfully.')
+
         except Exception as e:
             print(f'Error: {str(e)}')
 
