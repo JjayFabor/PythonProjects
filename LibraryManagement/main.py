@@ -4,10 +4,13 @@
 
 from books import Books
 from members import Members
+from library import Library
 
 class Menu:
     def __init__(self):
-        pass
+        self.books = Books()
+        self.members = Members()
+        self.library = Library()
 
     def __str__(self):
         return '''
@@ -29,17 +32,15 @@ class Menu:
     
     def options(self):
         self.options = int(input("Choose a number: "))
-        self.books = Books()
-        self.members = Members()
-
+        
+        if self.options == 1:
+            print(self.library)
         if self.options == 2:
             print(self.books)
             self.books.options()
         if self.options == 3:
-            self.members.remove_member()
-
-    def library(self):
-        pass
+            print(self.members)
+            self.members.options()
 
 
 if __name__ == "__main__":
