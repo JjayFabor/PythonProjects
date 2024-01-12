@@ -31,9 +31,10 @@ class Books:
             all_books = self.cursor.fetchall()
             
             for book in all_books:
-                print(f"Title: {book[0]}")
-                print(f"Author: {book[1]}")
-                print(f"Published Date: {book[2]}\n")
+                print(f'BookID: {book[0]}')
+                print(f"Title: {book[1]}")
+                print(f"Author: {book[2]}")
+                print(f"Published Date: {book[3]}\n")
         
         self.library_database.close_connection()
 
@@ -68,10 +69,10 @@ class Books:
             with self.library_database.connect_to_database() as conn:
                 self.cursor = conn.cursor()
 
-                book_title_to_remove = input("Enter the title of the book you want to remove: ")
+                bookID_to_remove = input("Enter the ID of the book you want to remove: ")
 
-                self.cursor.execute(f'DELETE FROM BookTable WHERE Title = "{book_title_to_remove}"')
-                print(f'Book "{book_title_to_remove}" removed successfully!')
+                self.cursor.execute(f'DELETE FROM BookTable WHERE Title = "{bookID_to_remove}"')
+                print(f'Book "{bookID_to_remove}" removed successfully!')
 
         except Exception as e:
             print(f'Error: ' + str(e))
@@ -84,33 +85,34 @@ class Books:
             with self.library_database.connect_to_database() as conn:
                 self.cursor = conn.cursor()
 
-                book_title_to_update = input("Enter the title of the book you want to update: ")
+                bookID_to_update = input("Enter the ID of the book you want to update: ")
 
                 # Display the current data for the memberID to be updated
-                self.cursor.execute(f'SELECT * FROM BookTable WHERE Title = "{book_title_to_update}"')
+                self.cursor.execute(f'SELECT * FROM BookTable WHERE BookID = "{bookID_to_update}"')
                 book_data = self.cursor.fetchall()
 
                 # Convert member data into a list of list because it is a list of tuples
                 book_data_list = [list(row) for row in book_data]
 
                 for book in book_data_list:
-                    print(f'\Title: {book[0]}')
-                    print(f'Author: {book[1]}')
-                    print(f'Publish Date: {book[2]}')
+                    print(f'BookID: {book[0]}')
+                    print(f"Title: {book[1]}")
+                    print(f"Author: {book[2]}")
+                    print(f"Published Date: {book[3]}\n")
 
                 new_title = input("Enter the book title (leave empty to keep the current data): ")    
                 new_author = input("Enter the author (leave empty to keep the current data): ")
                 new_publishDate = input("Enter the publish date (leave empty to keep the current data): ")
 
                 if new_title:
-                    self.cursor.execute('UPDATE BookTable SET Title = ? WHERE Title = ?', (new_title, book_title_to_update))
+                    self.cursor.execute('UPDATE BookTable SET Title = ? WHERE BookID = ?', (new_title, bookID_to_update))
                 if new_author:
-                    self.cursor.execute('UPDATE BookTable SET Author = ? WHERE Title = ?', (new_author, book_title_to_update))
+                    self.cursor.execute('UPDATE BookTable SET Author = ? WHERE BookID = ?', (new_author, bookID_to_update))
                 if new_publishDate:
-                    self.cursor.execute('UPDATE BookTable SET PublishDate = ? WHERE Title = ?', (new_publishDate, book_title_to_update))
+                    self.cursor.execute('UPDATE BookTable SET PublishDate = ? WHERE BookID = ?', (new_publishDate, bookID_to_update))
 
                 conn.commit()
-                print(f'Book with title {book_title_to_update} update successfully!')
+                print(f'Book with ID {bookID_to_update} update successfully!')
 
         except Exception as e:
             print(f'Error: ' + str(e))
