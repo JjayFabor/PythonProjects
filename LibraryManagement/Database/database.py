@@ -12,11 +12,13 @@ class LibraryDatabase:
         self.conn = sqlite3.connect(self.database_path)
         return self.conn
     
+    # Database Table for book information
     def create_book_table(self):
         self.cursor = self.connect_to_database()
         try:
             self.cursor.execute('''
                     CREATE TABLE IF NOT EXISTS BookTable (
+                        BookID TEXT PRIMARY KEY,
                         Title TEXT,
                         Author TEXT,
                         PublishDate TEXT
@@ -27,6 +29,7 @@ class LibraryDatabase:
         
         self.close_connection()
     
+    # Database table for member information
     def create_member_table(self):
         self.cursor = self.connect_to_database()
         try:
@@ -44,6 +47,27 @@ class LibraryDatabase:
             print(f'Error creating table: {e}')
         
         self.close_connection()
+
+    # Database table for member and book info when borrowed
+    def create_borrow_table(self):
+        self.cursor = self.connect_to_database()
+        try:
+            self.cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS BorrowBookTable
+                        (
+                        BorrowID TEXT,
+                        First_Name TEXT NOT NULL,
+                        MemberID TEXT,
+                        BookID TEXT,
+                        Book_Title TEXT,
+                        Borrow_Date TEXT NOT NULL,
+                        Return_Date TExt,
+                        FOREIGN KEY (BookID) REFERENCES BookTable(BookID),
+                        FOREIGN KEY (MemberID) REFERENCES MemberTable(MemberID)
+                        );
+                    ''')
+        except Exception as e:
+            print(f'Error creating table: {e}')
 
     def close_connection(self):
         self.conn.close()
