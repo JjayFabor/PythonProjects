@@ -1,4 +1,5 @@
 from Database.database import LibraryDatabase
+import random
 
 class Books:
     def __init__(self):
@@ -45,12 +46,14 @@ class Books:
 
                 isBookAdded = False
                 self.cursor = conn.cursor()
+                
+                bookID = str(random.randint(10**(12), 10**(13) - 1))
 
                 title = input("Enter title of the book: ")
                 author = input("Enter author of the book: ")
                 published_date = input("Enter the published date of the book (yyyy-mm-dd): ")
 
-                self.cursor.execute(f'INSERT INTO BookTable (Title, Author, PublishDate) VALUES (?, ?, ?)', (title, author, published_date))
+                self.cursor.execute(f'INSERT INTO BookTable (BookID, Title, Author, PublishDate) VALUES (?, ?, ?, ?)', (bookID, title, author, published_date))
                 conn.commit()
                 isBookAdded = True
 
