@@ -4,6 +4,7 @@ store in a database.
 '''
 
 import requests
+import random
 from Database.database import LibraryDatabase
 
 def get_top_books(api_key):
@@ -32,8 +33,13 @@ def get_top_books(api_key):
                 title = volume_info.get("title", "N/A")
                 authors = volume_info.get("authors", ["N/A"])
                 published_date = volume_info.get("publishedDate", "N/A")
+                bookID = volume_info.get("industryIdentifiers", [{"type": "ISBN_13", "identifier": "N/A"}])[0]["identifier"] # Uses ISBN as the BookID
 
-                cursor.execute('INSERT INTO BookTable (Title, Author, PublishDate) VALUES (?, ?, ?)', (title, ', '.join(authors), published_date))
+                # Generate 13 random numbers if the BookID or ISBN is N/A
+                if bookID == "N/A":
+                    bookID = str(random.randint(10**(12), 10**(13) - 1))
+
+                cursor.execute('INSERT INTO BookTable (BookID, Title, Author, PublishDate) VALUES (?, ?, ?, ?)', (bookID, title, ', '.join(authors), published_date))
                 conn.commit()
     else:
         print(f"Error: {response.status_code}")
